@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
+    <style>
+        :root {
+            --primary-color: #996515;
+            --secondary-color: #D4AF37;
+            --bg-color: #FFF8E7;
+            --text-color: #2C2C2C;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: var(--bg-color);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        #shop-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        #shop-list li:hover {
+            transform: translateX(5px);
+        }
+
+        .item-info {
+            gap: 1rem;
+        }
+
+        .item-image {
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .input-group {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        select, input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(153, 101, 21, 0.3);
+        }
+
+        .total {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .prompt-message {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s;
+            z-index: 1000;
+        }
+
+        .discount-option:hover {
+            border-color: var(--secondary-color);
+            background-color: #fff8e7;
+        }
+
+        .discount-option input[type="radio"]:checked + span {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .discount-option input[type="radio"]:checked {
+            accent-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body style="font-family: 'Poppins', Arial, sans-serif; line-height: 1.6; color: #2C2C2C; background-color: #FFF8E7;">
+
+    <header style="background: linear-gradient(135deg, #996515, #D4AF37); color: #FFF8E7; padding: 40px 20px; text-align: center; box-shadow: 0 2px 15px rgba(212, 175, 55, 0.3); position: relative;">
+        <a href="collection.html" class="back-button" style="display: inline-block; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); padding: 10px 20px; background: linear-gradient(135deg, #996515, #D4AF37); color: #FFF8E7; text-decoration: none; border-radius: 5px; box-shadow: 0 2px 15px rgba(212, 175, 55, 0.3);">
+             Back to Collection
+        </a>
+        <div class="navbar" style="max-width: 1200px; margin: 0 auto;">
+            <div class="logo">
+                <h1 style="font-size: 2.5em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); background: linear-gradient(90deg, #996515 0%, #FFD700 25%, #D4AF37 50%, #FFD700 75%, #996515 100%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: goldShimmer 10s linear infinite;">
+                    Timber & Touch Checkout
+                </h1>
+            </div>
+        </div>
+    </header>
+    
+
+    <main style="margin: 20px; text-align: justify; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <ul id="shop-list" style="list-style-type: none; padding: 0;">
+            <!-- Items will be dynamically added here -->
+        </ul>
+        <div class="input-group" style="margin: 20px 0;">
+            <h3 style="margin-bottom: 15px; color: var(--primary-color);">Available Discounts</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">
+                <label class="discount-option" style="display: block; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer;">
+                    <input type="radio" name="discount-type" value="none" checked onchange="updateTotals()">
+                    <span style="margin-left: 8px;">No Discount</span>
+                </label>
+                <label class="discount-option" style="display: block; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer;">
+                    <input type="radio" name="discount-type" value="senior" onchange="updateTotals()">
+                    <span style="margin-left: 8px;">Senior Citizen (20%)</span>
+                </label>
+                <label class="discount-option" style="display: block; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer;">
+                    <input type="radio" name="discount-type" value="member" onchange="updateTotals()">
+                    <span style="margin-left: 8px;">Member (10%)</span>
+                </label>
+                <label class="discount-option" style="display: block; padding: 10px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer;">
+                    <input type="radio" name="discount-type" value="promo" onchange="updateTotals()">
+                    <span style="margin-left: 8px;">Special Promo (15%)</span>
+                </label>
+            </div>
+        </div>
+        <div class="total" style="font-weight: bold; margin-top: 20px;">Total: <span id="total-price">₱0</span></div>
+        <div class="total discount" style="color: green;">Discount: <span id="discount-amount">₱0</span></div>
+        <div class="total" style="font-weight: bold;">Final Total: <span id="final-total">₱0</span></div>
+        <div class="input-group" style="margin: 20px 0;"> <label for="payment-method">Payment Method: </label> <select id="payment-method" onchange="togglePaymentDetails()" style="margin-right: 10px;"> <option value="credit-debit">Credit/Debit Card</option> <option value="online"><img src="assets/gcash-logo.png" alt="Gcash Logo" class="payment-method"/>Online Payment (Gcash)</option> <option value="cash">Cash on Counter</option> </select> </div> <div id="payment-details" style="display: none; margin: 20px 0;"> <input type="text" id="payment-info" placeholder="Enter payment details" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" /> </div> <div id="cash-input" style="display: none; margin: 20px 0;"> <input type="number" id="cash-amount" placeholder="Enter cash amount" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;" /> </div> <button onclick="processOrder()" style="padding: 10px 15px; border: none; border-radius: 3px; background-color: #FFD700; color: white; cursor: pointer; transition: background-color 0.3s ease;">Process Order</button>
+    </main>
+    <script>
+    function loadCart() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let ul = document.getElementById('shop-list');
+        ul.innerHTML = ''; // Clear existing items
+        let totalPrice = 0;
+
+        cart.forEach(function(item) {
+            let li = document.createElement('li');
+            li.innerHTML = `
+                <div class="item-info" style="display: flex; align-items: center;">
+                    <img src="${item.image}" alt="${item.product}" class="item-image" style="max-width: 50px; max-height: 50px; margin-right: 10px;">
+                    <span>${item.product} - ₱${item.price.toLocaleString()}</span>
+                </div>
+                <button onclick="removeItem(this, '${item.product}')" style="padding: 10px 15px; border: none; border-radius: 3px; background-color: #FFD700; color: white; cursor: pointer; transition: background-color 0.3s ease;">Remove</button>`;
+            ul.appendChild(li);
+            totalPrice += item.price;
+        });
+
+        updateTotals();
+    }
+
+    function calculateDiscount(total) {
+        let discountType = document.querySelector('input[name="discount-type"]:checked').value;
+        
+        const discountRates = {
+            'none': 0,
+            'senior': 0.20,  // 20% discount
+            'member': 0.10,  // 10% discount
+            'promo': 0.15    // 15% discount
+        };
+
+        return total * discountRates[discountType];
+    }
+
+    function updateTotals() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let totalPrice = 0;
+
+        cart.forEach(function(item) {
+            totalPrice += item.price;
+        });
+
+        let discount = calculateDiscount(totalPrice);
+        let finalTotal = totalPrice - discount;
+
+        document.getElementById('total-price').innerText = `₱${totalPrice.toLocaleString()}`;
+        document.getElementById('discount-amount').innerText = `₱${discount.toLocaleString()}`;
+        document.getElementById('final-total').innerText = `₱${finalTotal.toLocaleString()}`;
+    }
+
+    function togglePaymentDetails() {
+        let paymentMethod = document.getElementById('payment-method').value;
+        let paymentDetails = document.getElementById('payment-details');
+        let cashInput = document.getElementById('cash-input');
+
+        if (paymentMethod === 'credit-debit' || paymentMethod === 'online') {
+            paymentDetails.style.display = 'block';
+            cashInput.style.display = 'none';
+        } else if (paymentMethod === 'cash') {
+            paymentDetails.style.display = 'none';
+            cashInput.style.display = 'block';
+        } else {
+            paymentDetails.style.display = 'none';
+            cashInput.style.display = 'none';
+        }
+    }
+
+    function removeItem(button, productName) {
+        let li = button.parentElement;
+        let ul = li.parentElement;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.filter(item => item.product !== productName);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        ul.removeChild(li);
+        promptMessage('Item removed from cart');
+        updateTotals();
+    }
+
+    function processOrder() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let paymentMethod = document.getElementById('payment-method').value;
+
+        if (paymentMethod === 'cash') {
+            let cashAmount = parseFloat(document.getElementById('cash-amount').value);
+            let finalTotal = parseFloat(document.getElementById('final-total').innerText.replace('₱', '').replace(',', ''));
+
+            if (isNaN(cashAmount) || cashAmount < finalTotal) {
+                promptMessage('Insufficient cash amount.', true);
+                return;
+            }
+
+            let change = cashAmount - finalTotal;
+            promptMessage(`Order processed successfully. Your change is ₱${change.toLocaleString()}.`);
+        } else {
+            promptMessage('Your order has been processed successfully');
+        }
+
+        if (cart.length > 0) {
+            localStorage.removeItem('cart');
+            document.getElementById('shop-list').innerHTML = '';
+            updateTotals();
+        } else {
+            promptMessage('Order failed to process. Your cart is empty.', true);
+        }
+    }
+
+    function promptMessage(message, isError = false) {
+        let promptDiv = document.createElement('div');
+        promptDiv.className = 'prompt-message';
+        promptDiv.style.backgroundColor = isError ? 'red' : '#FFD700';
+        promptDiv.innerText = message;
+        document.body.appendChild(promptDiv);
+
+        setTimeout(function() {
+            promptDiv.style.opacity = '0';
+            setTimeout(function() {
+                document.body.removeChild(promptDiv);
+            }, 500);
+        }, 3000);
+    }
+
+    window.onload = loadCart;
+</script>
+
+    </script>
+</body>
+</html>

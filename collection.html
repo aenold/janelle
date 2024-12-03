@@ -1,0 +1,384 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Collection - Timber & Touch</title>         
+        <link rel="stylesheet" type="text/css" href="css/styles.css"> 
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> 
+        <style>
+             .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+            float: right;
+            margin-top: -30px;
+            margin-right: 20px;
+            color: white;
+        }
+        .filter-button {
+            margin: 5px;
+        }
+        .product-collection {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid var(--gold-primary);
+            box-shadow: 0 2px 15px rgba(212, 175, 55, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--gold-primary);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold-dark);
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--gold-dark);
+            font-size: 1.1rem;
+        }
+
+        .category-filter {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .filter-button {
+            background: none;
+            border: 2px solid var(--gold-primary);
+            padding: 0.5rem 1rem;
+            margin: 0 0.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background: var(--gold-primary);
+            color: white;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--gold-primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+            font-size: 14px;
+        }
+
+        .back-button i {
+            font-size: 12px;
+        }
+
+        .back-button:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold-primary);
+            color: white;
+            width: 40px;  /* Make it circular */
+            height: 40px;  /* Make it circular */
+            border-radius: 50%;  /* Make it circular */
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;  /* Center the icon */
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top i {
+            font-size: 16px;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4444;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        /* Add to cart button styling */
+        .add-to-cart-btn {
+            background-color: var(--gold-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .add-to-cart-btn i {
+            font-size: 16px;
+        }
+    </style>         
+    </head>     
+    <script>
+        // Function to add item to local storage
+        function addToCart(product, price, image) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({
+                product,
+                price,
+                image,
+                isDiscounted: true
+            });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Discounted item added to cart!');
+        }
+    </script>
+    <body> <a href="index.html" class="back-button">  <i class="fas fa-arrow-left"></i> 
+    Back to Homepage
+</a> <a href="#" class="scroll-top">  <i class="fas fa-arrow-up"></i> </a> 
+        <header> 
+             
+        <nav class="navbar"> 
+            <div class="logo"> 
+                <h1>Timber & Touch</h1> 
+            </div>                 
+            <p class="tagline">"Where Nature Meets Elegance in Every Piece"</p> 
+            <!-- Shopping cart icon as hyperlink -->
+            <a href="shopping-list.html" class="cart-icon">🛒</a>
+        </nav>             
+    </header>         
+    <main> 
+                     
+        <main> 
+            <section class="product-collection"> 
+                <h2 class="centered-title">Our Collection</h2> 
+                <div class="category-filter"> 
+                    <button class="filter-button active" onclick="filterProducts('all')">All</button>                     
+                    <button class="filter-button" onclick="filterProducts('sofa')">Sofas & Chairs</button>                     
+                    <button class="filter-button" onclick="filterProducts('table')">Dining Tables</button>                     
+                    <button class="filter-button" onclick="filterProducts('cabinet')">Cabinets</button>                     
+                </div>                 
+                <div class="products-grid"> 
+                    <!-- Sofa Product -->                     
+                    <div class="product-card sofa"> 
+                        <div class="discount-badge">-15%</div>
+                        <img src="assets/modern-sofa.jpg" alt="Modern Comfort Sofa" class="product-image"> 
+                        <div class="product-info"> 
+                            <h3 class="product-title">Modern Comfort Sofa</h3> 
+                            <p class="product-description">Contemporary design meets ultimate comfort with this elegant three-seater sofa.</p> 
+                            <p><span class="original-price">₱72,500</span><span class="product-price">₱61,625</span></p>
+                            <button class="add-to-cart-btn" onclick="addToCart('Modern Comfort Sofa', 61625, 'assets/modern-sofa.jpg')">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>                         
+                    </div>                     
+                    <!-- Dining Table Product -->                     
+                    <div class="product-card table"> 
+                        <div class="discount-badge">-20%</div>
+                        <img src="assets/dining-table.jpg" alt="Rustic Dining Table" class="product-image"> 
+                        <div class="product-info"> 
+                            <h3 class="product-title">Rustic Dining Table</h3> 
+                            <p class="product-description">Solid oak dining table with natural finish, seats 6-8 people.</p> 
+                            <p><span class="original-price">₱50,000</span><span class="product-price">₱40,000</span></p>
+                            <button class="add-to-cart-btn" onclick="addToCart('Rustic Dining Table', 40000, 'assets/dining-table.jpg')">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>                         
+                    </div>                     
+                    <!-- Cabinet Product -->                     
+                    <div class="product-card cabinet"> 
+                        <img src="assets/storage-cabinet.jpg" alt="Modern Storage Cabinet" class="product-image"> 
+                        <div class="product-info"> 
+                            <h3 class="product-title">Modern Storage Cabinet</h3> 
+                            <p class="product-description">Sleek storage solution with adjustable shelves and soft-close doors.</p> 
+                            <p class="product-price">₱41,800</p> 
+                            <button class="add-to-cart-btn" onclick="addToCart('Modern Storage Cabinet', 41800, 'assets/storage-cabinet.jpg')">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>                         
+                    </div>                     
+                    <!-- Armchair Product -->                     
+                    <div class="product-card sofa"> 
+                        <img src="assets/armchair.jpg" alt="Classic Armchair" class="product-image"> 
+                        <div class="product-info"> 
+                            <h3 class="product-title">Classic Armchair</h3> 
+                            <p class="product-description">Timeless design armchair with premium fabric upholstery.</p> 
+                            <p class="product-price">₱33,500</p> 
+                            <button class="add-to-cart-btn" onclick="addToCart('Classic Armchair', 33500, 'assets/armchair.jpg')">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>                         
+                    </div>                     
+                    <!-- Coffee Table Product -->                     
+                    <div class="product-card table"> 
+                        <img src="assets/coffee-table.jpg" alt="Minimalist Coffee Table" class="product-image"> 
+                        <div class="product-info"> 
+                            <h3 class="product-title">Minimalist Coffee Table</h3> 
+                            <p class="product-description">Clean lines and practical storage make this coffee table a perfect centerpiece.</p> 
+                            <p class="product-price">₱25,000</p> 
+                            <button class="add-to-cart-btn" onclick="addToCart('Minimalist Coffee', 25000, 'assets/coffee-table.jpg')">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>                         
+                    </div>                     
+                    <!-- Bookshelf Product -->                     
+                    <div class="product-card cabinet"> 
+                        <img src="assets/bookshelf.jpg" alt="Industrial Bookshelf" class="product-image"> 
+                        <div class="product-info"> 
+                            <h3 class="product-title">Industrial Bookshelf</h3> 
+                            <p class="product-description">Metal and wood combination bookshelf with adjustable shelves.</p> 
+                            <p class="product-price">₱37,900</p> 
+                            <button class="add-to-cart-btn" onclick="addToCart('Industrial Bookshelf', 37900, 'assets/bookshelf.jpg')">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>                         
+                    </div>                     
+                </div>                 
+            </section>             
+        </main>         
+        <footer> 
+            <div class="footer-content"> 
+                <div class="contact-info"> 
+                    <h3>Contact Us</h3> 
+                    <p>  <a href="mailto:info@timberandtouch.com">info@timberandtouch.com</a>  <br>  <a href="tel:09876543210">09876543210</a>  </p> 
+                </div>                 
+                <div class="social-links"> 
+                    <h3>Follow Us</h3> 
+                    <div class="social-icons"> <a href="https://instagram.com" target="_blank" aria-label="Follow us on Instagram">  <i class="fab fa-instagram"></i>  </a> <a href="https://facebook.com" target="_blank" aria-label="Follow us on Facebook">  <i class="fab fa-facebook"></i>  </a> 
+                    </div>                     
+                </div>                 
+            </div>             
+            <div class="copyright"> 
+                <p>&copy; 2024 Timber & Touch. All rights reserved.</p> 
+            </div>             
+        </footer>         
+        <script>
+    // Filter products
+    function addToCart(product, price, image) 
+    { let cart = JSON.parse(localStorage.getItem('cart')) || []; cart.push({ product, price, image, isDiscounted: true });
+     localStorage.setItem('cart', JSON.stringify(cart)); alert('Discounted item added to cart!'); } 
+     // Filter products
+     
+     function filterProducts(category) { var products = document.getElementsByClassName('product-card'); for (var i = 0; i < products.length; i++) 
+     { if (category === 'all' || products[i].classList.contains(category))
+      { products[i].style.display = 'block'; } else { products[i].style.display = 'none'; } } }
+
+    // Scroll to top functionality
+    const scrollButton = document.querySelector('.scroll-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollButton.classList.add('visible');
+        } else {
+            scrollButton.classList.remove('visible');
+        }
+    });
+
+
+    scrollButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+
+</script>         
+    </body>     
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Timber & Touch</title>
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Main container styles */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* About section styles */
+    .about-section {
+      margin: 40px 0;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .about-image-container {
+      position: relative;
+    }
+
+    .about-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+      border: 3px solid var(--gold-primary);
+    }
+
+    .about-text {
+      padding: 20px;
+    }
+
+    .about-text h2 {
+      color: var(--gold-dark);
+      font-size: 2.2em;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .about-text p {
+      font-size: 1.1em;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    /* Timeline styles */
+    .timeline {
+      margin: 60px 0;
+      position: relative;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .timeline-item {
+      background: white;
+      border-radius: 8px;
+      padding: 25px;
+      margin: 25px 0;
+      box-shadow: 0 2px 15px rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold-primary);
+    }
+
+    .timeline-item h3 {
+      color: var(--gold-dark);
+      margin-bottom: 15px;
+      font-size: 1.4em;
+    }
+
+    /* Team section styles */
+    .team-section {
+      margin: 60px 0;
+      text-align: center;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .team-member {
+      background: white;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 2px 15px rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--gold-primary);
+    }
+
+    .team-member img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold-primary);
+      margin-bottom: 20px;
+    }
+
+    .team-member h3 {
+      color: var(--gold-dark);
+      margin: 10px 0;
+      font-size: 1.3em;
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--gold-dark);
+      font-size: 2.5em;
+      margin: 40px 0;
+    }
+
+    /* Back button styles */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--gold-primary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+      font-size: 0.9em;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+    }
+
+    .back-button:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      transition: all 0.3s ease;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .about-text {
+        padding: 10px;
+      }
+
+      .about-text h2 {
+        font-size: 1.8em;
+        text-align: center;
+      }
+
+      .about-text p {
+        font-size: 1em;
+        line-height: 1.6;
+        text-align: left;
+      }
+
+      .section-title {
+        font-size: 2em;
+        padding: 0 15px;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+      }
+
+      .timeline-item {
+        margin: 15px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="index.html" class="back-button">
+  <i class="fas fa-arrow-left"></i>
+  Back to Homepage
+</a>
+
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <h1>Timber & Touch</h1>
+    </div>
+    <p class="tagline">"Where Nature Meets Elegance in Every Piece"</p>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="about-section">
+    <div class="about-content">
+      <div class="about-image-container">
+        <img src="assets/workshop.jpg" alt="Our workshop" class="about-image">
+      </div>
+      <div class="about-text">
+        <h2>Crafting Excellence Since 2010</h2>
+        <p>Timber & Touch began with a simple vision: to create furniture that combines traditional craftsmanship with contemporary design. Our journey started in a small workshop, where our founder's passion for woodworking transformed into a mission to deliver exceptional furniture pieces to homes across the country.</p>
+        <p>Today, we continue to uphold our commitment to quality, sustainability, and innovative design. Each piece that leaves our workshop tells a story of dedication, skill, and artistic vision.</p>
+      </div>
+    </div>
+  </section>
+
+  <h2 class="section-title">Our Process</h2>
+  <section class="timeline">
+    <div class="timeline-item">
+      <h3>Thoughtful Design</h3>
+      <p>Every piece begins with careful consideration of form, function, and sustainability. Our designers work closely with craftsmen to ensure each design is both beautiful and practical.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>Material Selection</h3>
+      <p>We source only the finest sustainable hardwoods and materials, ensuring each piece is built to last generations while protecting our environment.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>Master Craftsmanship</h3>
+      <p>Our skilled artisans combine traditional techniques with modern precision to create furniture that exemplifies excellence in every detail.</p>
+    </div>
+    <div class="timeline-item">
+      <h3>Quality Assurance</h3>
+      <p>Each piece undergoes rigorous quality checks to ensure it meets our exacting standards before reaching your home.</p>
+    </div>
+  </section>
+
+  <section class="team-section">
+    <h2 class="section-title">Meet Our Team</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <img src="assets/craftsman1.jpg" alt="Master Craftsman">
+        <h3>James Wilson</h3>
+        <p>Master Craftsman</p>
+      </div>
+      <div class="team-member">
+        <img src="assets/designer1.jpg" alt="Lead Designer">
+        <h3>Sarah Chen</h3>
+        <p>Lead Designer</p>
+      </div>
+      <div class="team-member">
+        <img src="assets/craftsman2.jpg" alt="Senior Woodworker">
+        <h3>Michael Brown</h3>
+        <p>Senior Woodworker</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div class="contact-info">
+      <h3>Contact Us</h3>
+      <p>
+        <a href="mailto:info@timberandtouch.com">info@timberandtouch.com</a>
+        <br>
+        <a href="tel:09876543210">09876543210</a>
+      </p>
+    </div>
+    <div class="social-links">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="https://instagram.com" target="_blank" aria-label="Follow us on Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://facebook.com" target="_blank" aria-label="Follow us on Facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>&copy; 2024 Timber & Touch. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/scripts.js"></script>
+</body>
+</html>
